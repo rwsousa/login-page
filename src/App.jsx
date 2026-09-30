@@ -1,11 +1,28 @@
-export default function App() {
+import { useState } from "react"
+import { toast } from "react-toastify"
 
-  function login () {
-    alert("Login Executado!")
+export default function App() {
+  const [email, setEmail] = useState("")      // const [nome, setNome] = useState ("")
+                                             // [nome da variável, nome da função que eu uso para alterar a variável] = hook e valor de início "TEXTO", {OBJETO}, [LISTA]
+
+  const [password, setPassword] = useState("")
+
+  function login(event) {
+    event.preventDefault()
+    
+    if(email === "" || password === "") {
+      toast.error("Email e senha são obrigatórios!")
+      return
+    }
+    
+    if(password.length <= 8) {
+      toast.error("Senha precisa ter pelo menos 8 dígitos")
+      return
+    }
+
+    toast.success("Login realizado com sucesso!")
 
   }
-
-
 
   return (
     <div className="w-full h-screen bg-[url('../public/netflix-bg.jpg')]">
@@ -19,11 +36,17 @@ export default function App() {
           >
 
             <input
+              onChange={
+                (event) => setEmail(event.target.value)
+              }
               type="email"
               placeholder="Email adress"
               className="w-full h-[50px] bg-[#2727276a] border border-gray-400 pl-4 rounded-sm"
             />
-            <input  
+            <input
+              onChange={
+                (event) => setPassword (event.target.value)
+              }  
               type="password"
               placeholder="Password"
               className="w-full h-[50px] bg-[#2727276a] border border-gray-400 pl-4 rounded-sm"
